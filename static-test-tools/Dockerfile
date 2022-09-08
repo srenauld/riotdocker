@@ -27,10 +27,9 @@ RUN \
         shellcheck \
         vera++ \
         wget \
+        coccinelle \
         && \
     echo 'Installing local packages' >&2 && \
-    apt-get install -y --no-install-recommends /pkgs/*.deb \
-        && \
     echo 'Cleaning up installation files' >&2 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /pkgs
 
