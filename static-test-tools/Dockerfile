@@ -10,8 +10,8 @@ ENV LANG C.UTF-8
 
 # copy some included packages
 RUN mkdir /pkgs
-ARG COCCINELLE_DEB="coccinelle_1.0.8~19.04npalix1_amd64.deb"
-COPY files/${COCCINELLE_DEB} /pkgs/${COCCINELLE_DEB}
+# ARG COCCINELLE_DEB="coccinelle_1.0.8~19.04npalix1_amd64.deb"
+# COPY files/${COCCINELLE_DEB} /pkgs/${COCCINELLE_DEB}
 
 RUN \
     echo 'Update the package index files to latest available versions' >&2 && \
@@ -26,10 +26,9 @@ RUN \
         pcregrep \
         shellcheck \
         vera++ \
-        wget \
-        coccinelle \
-        && \
-    echo 'Installing local packages' >&2 && \
+        wget
+RUN apt-get source --compile coccinelle && dpkg -i coccinelle-*.deb
+RUN \
     echo 'Cleaning up installation files' >&2 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /pkgs
 
