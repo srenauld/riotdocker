@@ -52,12 +52,20 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+        
+      - name: Login to DockerHub
+        if: "${{ github.ref == 'refs/heads/master' }}"
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build riotdocker-base
         uses: docker/build-push-action@v2
         with:
           context: ./riotdocker-base
           platforms: linux/amd64,linux/arm64
+          push: true
           tags: |
             ${{ env.DOCKER_REGISTRY }}/riotdocker-base:latest
             ${{ env.DOCKER_REGISTRY }}/riotdocker-base:${{ env.VERSION_TAG }}
@@ -67,6 +75,7 @@ jobs:
         with:
           context: ./static-test-tools
           platforms: linux/amd64,linux/arm64
+          push: true
           tags: |
             ${{ env.DOCKER_REGISTRY }}/static-test-tools:latest
             ${{ env.DOCKER_REGISTRY }}/static-test-tools:${{ env.VERSION_TAG }}
@@ -84,6 +93,7 @@ jobs:
         with:
           context: ./riotbuild
           platforms: linux/amd64,linux/arm64
+          push: true
           tags: |
             ${{ env.DOCKER_REGISTRY }}/riotbuild:latest
             ${{ env.DOCKER_REGISTRY }}/riotbuild:${{ env.VERSION_TAG }}
@@ -167,18 +177,12 @@ jobs:
         with:
           context: ./murdock-worker
           platforms: linux/amd64,linux/arm64
+          push: true
           tags: |
             ${{ env.DOCKER_REGISTRY }}/murdock-worker:latest
             ${{ env.DOCKER_REGISTRY }}/murdock-worker:${{ env.VERSION_TAG }}
           build-args: |
             DOCKER_REGISTRY=${{ env.DOCKER_REGISTRY }}
-
-      - name: Login to DockerHub
-        if: "${{ github.ref == 'refs/heads/master' }}"
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push Images
         if: "${{ github.ref == 'refs/heads/master' }}"
