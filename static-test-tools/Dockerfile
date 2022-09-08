@@ -8,11 +8,6 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
-# copy some included packages
-RUN mkdir /pkgs
-# ARG COCCINELLE_DEB="coccinelle_1.0.8~19.04npalix1_amd64.deb"
-COPY files/* /pkgs/
-
 RUN \
     echo 'Update the package index files to latest available versions' >&2 && \
     apt-get update && \
@@ -27,11 +22,11 @@ RUN \
         shellcheck \
         vera++ \
         wget \
-        dpkg-dev
-RUN cd /pkgs && dpkg -i *
+        dpkg-dev \
+        coccinelle
 RUN \
     echo 'Cleaning up installation files' >&2 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /pkgs
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install required Python packages
 COPY requirements.txt /tmp/requirements.txt
