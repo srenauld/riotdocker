@@ -28,7 +28,7 @@ RUN \
         vera++ \
         wget \
         dpkg-dev
-RUN cd /pkgs && dpkg -i *
+RUN apt-get install -y --no-install-recommends /pkgs/*.deb
 RUN \
     echo 'Cleaning up installation files' >&2 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /pkgs
