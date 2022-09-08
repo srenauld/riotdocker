@@ -45,6 +45,11 @@ jobs:
         with:
           lfs: 'true'
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
         with:
@@ -54,6 +59,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./riotdocker-base
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ env.DOCKER_REGISTRY }}/riotdocker-base:latest
             ${{ env.DOCKER_REGISTRY }}/riotdocker-base:${{ env.VERSION_TAG }}
@@ -62,6 +68,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./static-test-tools
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ env.DOCKER_REGISTRY }}/static-test-tools:latest
             ${{ env.DOCKER_REGISTRY }}/static-test-tools:${{ env.VERSION_TAG }}
@@ -78,6 +85,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./riotbuild
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ env.DOCKER_REGISTRY }}/riotbuild:latest
             ${{ env.DOCKER_REGISTRY }}/riotbuild:${{ env.VERSION_TAG }}
@@ -160,6 +168,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./murdock-worker
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ env.DOCKER_REGISTRY }}/murdock-worker:latest
             ${{ env.DOCKER_REGISTRY }}/murdock-worker:${{ env.VERSION_TAG }}
