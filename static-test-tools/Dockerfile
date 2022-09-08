@@ -29,7 +29,9 @@ RUN \
         shellcheck \
         vera++ \
         wget
-RUN apt-get source --compile coccinelle && dpkg -i coccinelle-*.deb
+RUN apt-get source --compile coccinelle
+RUN ls -lha
+RUN dpkg -i *
 RUN \
     echo 'Cleaning up installation files' >&2 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /pkgs
