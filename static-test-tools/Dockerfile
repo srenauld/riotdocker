@@ -13,7 +13,7 @@ RUN mkdir /pkgs
 # ARG COCCINELLE_DEB="coccinelle_1.0.8~19.04npalix1_amd64.deb"
 # COPY files/${COCCINELLE_DEB} /pkgs/${COCCINELLE_DEB}
 
-RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list
 
 RUN \
     echo 'Update the package index files to latest available versions' >&2 && \
