@@ -11,9 +11,7 @@ ENV LANG C.UTF-8
 # copy some included packages
 RUN mkdir /pkgs
 # ARG COCCINELLE_DEB="coccinelle_1.0.8~19.04npalix1_amd64.deb"
-# COPY files/${COCCINELLE_DEB} /pkgs/${COCCINELLE_DEB}
-
-RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ impish main restricted universe multiverse" >> /etc/apt/sources.list
+COPY files/* /pkgs/
 
 RUN \
     echo 'Update the package index files to latest available versions' >&2 && \
@@ -30,10 +28,7 @@ RUN \
         vera++ \
         wget \
         dpkg-dev
-RUN apt-get build-dep -y coccinelle
-RUN apt-get source --compile coccinelle
-RUN ls -lha
-RUN dpkg -i *
+RUN cd /pkgs && dpkg -i *
 RUN \
     echo 'Cleaning up installation files' >&2 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /pkgs
