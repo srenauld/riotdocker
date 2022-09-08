@@ -28,7 +28,8 @@ RUN \
         pcregrep \
         shellcheck \
         vera++ \
-        wget
+        wget \
+        dpkg-dev
 RUN apt-get source --compile coccinelle
 RUN ls -lha
 RUN dpkg -i *
