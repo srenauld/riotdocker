@@ -52,8 +52,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-        with:
-          driver: docker
 
       - name: Build riotdocker-base
         uses: docker/build-push-action@v2
