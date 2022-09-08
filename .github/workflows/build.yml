@@ -193,3 +193,4 @@ jobs:
           docker image push ${{ env.DOCKER_REGISTRY }}/riotbuild:${{ env.VERSION_TAG }}
           docker image push ${{ env.DOCKER_REGISTRY }}/murdock-worker:latest
           docker image push ${{ env.DOCKER_REGISTRY }}/murdock-worker:${{ env.VERSION_TAG }}
+          
