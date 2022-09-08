@@ -30,7 +30,7 @@ RUN \
         vera++ \
         wget \
         dpkg-dev
-RUN apt-get build-dep coccinelle
+RUN apt-get build-dep -y coccinelle
 RUN apt-get source --compile coccinelle
 RUN ls -lha
 RUN dpkg -i *
