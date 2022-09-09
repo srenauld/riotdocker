@@ -87,6 +87,8 @@ RUN \
         unzip \
         vim-common \
         xsltproc \
+        libsocketcan2 \
+        libsocketcan-dev \
     && echo 'Installing MSP430 toolchain' >&2 && \
     apt-get -y --no-install-recommends install \
         gcc-msp430 \
